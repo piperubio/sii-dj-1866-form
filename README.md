@@ -13,7 +13,7 @@ Una aplicación web desarrollada con Streamlit para facilitar la creación de ar
 - **Editor de datos**: Tabla interactiva para editar y revisar la información
 - **Validaciones automáticas**: Verificación de formatos y datos requeridos
 - **Información detallada**: Guías completas sobre formato de archivos de entrada
-- **Generación exacta**: CSV sin encabezados, separador ';' según especificaciones SII
+- **Generación exacta**: CSV sin encabezados, separador ';', codificación latin1 y terminaciones CRLF según especificaciones SII con formato MS-DOS
 - **Resumen por período**: Vista consolidada de múltiples archivos procesados
 
 ## 📋 Estructura del Archivo (Formato SII)
@@ -129,7 +129,8 @@ Fecha Docto: 15/01/2024
 **Características del archivo generado:**
 - Sin encabezados (títulos de columna)
 - Separador: punto y coma (;)
-- Codificación: UTF-8
+- Codificación: MS-DOS (latin1)
+- Terminaciones de línea: CRLF (\r\n)
 - Fechas en formato ddmmaaaa
 - Decimales con punto (.)
 - Tipo de documento: siempre 2 (Factura Electrónica)

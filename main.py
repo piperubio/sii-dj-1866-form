@@ -309,7 +309,7 @@ with tab3:
         
         col1, col2 = st.columns(2)
         with col1:
-            st.info("📋 **Formato fijo para SII:**\n- Sin encabezados\n- Separador: punto y coma (;)\n- Codificación: UTF-8\n- Tipo documento: 2 (Factura Electrónica)")
+            st.info("📋 **Formato fijo para SII:**\n- Sin encabezados\n- Separador: punto y coma (;)\n- Codificación: MS-DOS (latin1)\n- Terminaciones de línea: CRLF (\\r\\n)\n- Tipo documento: 2 (Factura Electrónica)")
         
         with col2:
             # Obtener período más común o el primero disponible
@@ -389,14 +389,15 @@ with tab3:
             **Formatos:** N=Numérico, X=Alfanumérico, P=Decimal con punto, F=Fecha
             """)
         
-        # Generar CSV sin encabezados
+        # Generar CSV sin encabezados en formato MS-DOS
         csv_buffer = io.StringIO()
         df_final.to_csv(
             csv_buffer,
             index=False,
             header=False,  # Sin encabezados según especificación SII
             sep=';',       # Separador punto y coma según especificación
-            encoding='utf-8'
+            encoding='latin1',  # Codificación compatible con MS-DOS
+            line_terminator='\r\n'  # Terminación de línea MS-DOS (CRLF)
         )
         csv_string = csv_buffer.getvalue()
         
@@ -440,8 +441,8 @@ with tab3:
         
         # Botón de descarga
         st.download_button(
-            label="📥 Descargar archivo CSV para SII",
-            data=csv_string.encode('utf-8'),
+            label="📥 Descargar archivo CSV para SII (Formato MS-DOS)",
+            data=csv_string.encode('latin1'),  # Codificación compatible con MS-DOS
             file_name=nombre_archivo,
             mime="text/csv",
             type="primary",
@@ -458,9 +459,10 @@ with tab3:
         st.info(f"""
         📄 **Información del archivo generado:**
         - Registros: {len(df_final)}
-        - Tamaño: {len(csv_string.encode('utf-8'))} bytes
+        - Tamaño: {len(csv_string.encode('latin1'))} bytes
         - Formato: Sin encabezados, separador ';'
-        - Codificación: UTF-8
+        - Codificación: MS-DOS (latin1)
+        - Terminaciones de línea: CRLF (\\r\\n)
         - Períodos incluidos: {periodos_info}
         - Tipo de documento: 2 (Factura Electrónica)
         """)
@@ -498,6 +500,8 @@ st.sidebar.markdown("""
 - P = Decimal con punto
 - F = Fecha ddmmaaaa
 - Separador: punto y coma (;)
+- Codificación: MS-DOS (latin1)
+- Terminaciones de línea: CRLF (\\r\\n)
 - Sin encabezados
 
 ### 📥 Archivos de entrada esperados
