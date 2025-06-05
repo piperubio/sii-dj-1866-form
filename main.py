@@ -397,7 +397,7 @@ with tab3:
             header=False,  # Sin encabezados según especificación SII
             sep=';',       # Separador punto y coma según especificación
             encoding='latin1',  # Codificación compatible con MS-DOS
-            line_terminator='\r\n'  # Terminación de línea MS-DOS (CRLF)
+            lineterminator='\r\n'  # Terminación de línea MS-DOS (CRLF)
         )
         csv_string = csv_buffer.getvalue()
         
